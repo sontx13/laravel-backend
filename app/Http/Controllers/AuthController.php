@@ -83,7 +83,7 @@ class AuthController extends Controller
             return response()->json([
                 'error_code' => 1,
                 'message' => "HTTP_NOT_ACCEPTABLE",
-                'date' => $roles
+                'date' => Auth::id()
             ], Response::HTTP_NOT_ACCEPTABLE);
 
             return response()->json([
