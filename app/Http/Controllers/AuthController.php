@@ -41,6 +41,7 @@ class AuthController extends Controller
 
         $accept = $request->header('Accept');
 
+
         if ($accept == null || $accept != 'application/json') {
             return response()->json([
                 'error_code' => 1,
@@ -53,6 +54,12 @@ class AuthController extends Controller
                 'username' => 'required|string',
                 'password' => 'required|string'
             ]);
+
+            return response()->json([
+                'error_code' => 1,
+                'message' => "HTTP_NOT_ACCEPTABLE",
+                'date' => $request->username
+            ], Response::HTTP_NOT_ACCEPTABLE);
 
             if (!Auth::attempt(['username' => $request->username, 'password' => $request->password]))
                 return response()->json([
