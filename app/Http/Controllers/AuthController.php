@@ -78,13 +78,14 @@ class AuthController extends Controller
 
             $token = $this->getTokenAndRefreshTokenByPassword($oClient, \auth()->user()->email, $request->password);
 
-             return response()->json([
+            $roles = $this->GetRoles(Auth::id());
+
+            return response()->json([
                 'error_code' => 1,
                 'message' => "HTTP_NOT_ACCEPTABLE",
-                'date' => $token
+                'date' => $roles
             ], Response::HTTP_NOT_ACCEPTABLE);
 
-            $roles = $this->GetRoles(Auth::id());
             return response()->json([
                 'error_code' => 0,
                 'message' => 'Thành công',
