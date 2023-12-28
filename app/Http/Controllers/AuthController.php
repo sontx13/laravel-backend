@@ -55,12 +55,6 @@ class AuthController extends Controller
                 'password' => 'required|string'
             ]);
 
-            return response()->json([
-                'error_code' => 1,
-                'message' => "HTTP_NOT_ACCEPTABLE",
-                'date' => $request->username
-            ], Response::HTTP_NOT_ACCEPTABLE);
-
             if (!Auth::attempt(['username' => $request->username, 'password' => $request->password]))
                 return response()->json([
                     'error_code' => 1,
@@ -83,6 +77,12 @@ class AuthController extends Controller
             $oClient = OClient::where('password_client', 1)->first();
 
             $token = $this->getTokenAndRefreshTokenByPassword($oClient, \auth()->user()->email, $request->password);
+
+             return response()->json([
+                'error_code' => 1,
+                'message' => "HTTP_NOT_ACCEPTABLE",
+                'date' => $token
+            ], Response::HTTP_NOT_ACCEPTABLE);
 
             $roles = $this->GetRoles(Auth::id());
             return response()->json([
