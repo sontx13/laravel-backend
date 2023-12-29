@@ -81,13 +81,10 @@ class AuthController extends Controller
             $roles = $this->GetRoles(Auth::id());
 
             return response()->json([
-                'error_code' => 0,
-                'message' => 'Thành công',
-                'data' => [
-                    'id' => $token,
-                    'user' =>$roles
-                ]
-            ], Response::HTTP_OK);
+                'error_code' => 1,
+                'message' => "HTTP_NOT_ACCEPTABLE",
+                '$token' => $token
+            ], Response::HTTP_NOT_ACCEPTABLE);
 
             return response()->json([
                 'error_code' => 0,
