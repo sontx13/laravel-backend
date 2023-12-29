@@ -58,7 +58,7 @@ class QuanTriPAKNController extends VoyagerBaseController
                 tra_loi,
                 `status`,
                 is_public
-            FROM app_qcdc.tiep_nhan_pakn
+            FROM tiep_nhan_pakn
             WHERE
                 (? = -1 OR status = ?) AND
                 (? = -1 OR is_public = ?)
@@ -82,7 +82,7 @@ class QuanTriPAKNController extends VoyagerBaseController
         $query =
             "SELECT
                 count(*) as count
-            FROM app_qcdc.tiep_nhan_pakn
+            FROM tiep_nhan_pakn
             WHERE
                 ($ttXyLy = -1 OR status = ?) AND
                 ($ttCongKhai = -1 OR is_public = ?)";

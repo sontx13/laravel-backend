@@ -379,10 +379,10 @@ class KhaoSatController extends VoyagerBaseController
             (SELECT
                 donvi_id,
                 count( distinct uuid) as soluotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 group by donvi_id) a
-            LEFT JOIN app_qcdc.don_vi dv
+            LEFT JOIN don_vi dv
                 ON a.donvi_id = dv.id";
             return DB::select($query, [$khaosatid]);
         } else {
@@ -395,10 +395,10 @@ class KhaoSatController extends VoyagerBaseController
             (SELECT
                 donvi_id,
                 count( distinct uuid) as soluotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 group by donvi_id) a
-            LEFT JOIN app_qcdc.don_vi dv
+            LEFT JOIN don_vi dv
                 ON a.donvi_id = dv.id
             WHERE
                 a.donvi_id IN (" . $donviStr . ")";
@@ -415,9 +415,9 @@ class KhaoSatController extends VoyagerBaseController
                 "SELECT
                     cau_tra_loi,
                     count(cau_tra_loi) AS so_luot
-                FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and cau_hoi = ?
+                FROM khaosat_ketqua where khaosat_id = ? and cau_hoi = ?
                 AND uuid IN (
-                    SELECT uuid FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and (? = -1 OR cau_tra_loi = ?) and (? = -1 OR donvi_id = ?)
+                    SELECT uuid FROM khaosat_ketqua where khaosat_id = ? and (? = -1 OR cau_tra_loi = ?) and (? = -1 OR donvi_id = ?)
                 )
                 group by cau_tra_loi;
                 ";
@@ -429,9 +429,9 @@ class KhaoSatController extends VoyagerBaseController
                 "SELECT
                 cau_tra_loi,
                 count(cau_tra_loi) AS so_luot
-            FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and cau_hoi = ?
+            FROM khaosat_ketqua where khaosat_id = ? and cau_hoi = ?
             AND uuid IN (
-                SELECT uuid FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and (? = -1 OR cau_tra_loi = ?) and ((? = -1 AND donvi_id IN (" . $donviStr . ")) OR donvi_id = ?)
+                SELECT uuid FROM khaosat_ketqua where khaosat_id = ? and (? = -1 OR cau_tra_loi = ?) and ((? = -1 AND donvi_id IN (" . $donviStr . ")) OR donvi_id = ?)
             )
             group by cau_tra_loi;
             ";
@@ -454,13 +454,13 @@ class KhaoSatController extends VoyagerBaseController
                     from
                     (SELECT
                             *
-                        FROM app_qcdc.khaosat_ketqua
+                        FROM khaosat_ketqua
                         where
                             khaosat_id = ?
                             and cau_hoi = ?
-                            AND uuid IN (SELECT uuid FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and (? = -1 OR donvi_id = ?))
+                            AND uuid IN (SELECT uuid FROM khaosat_ketqua where khaosat_id = ? and (? = -1 OR donvi_id = ?))
                         ) filteruuid
-                    inner join app_qcdc.khaosat_ketqua as khaosat
+                    inner join khaosat_ketqua as khaosat
                         on filteruuid.uuid = khaosat.uuid
                     where
                         (khaosat.cau_hoi = ? or khaosat.cau_hoi = '1.3 Lĩnh vực giải quyết')
@@ -485,13 +485,13 @@ class KhaoSatController extends VoyagerBaseController
                     from
                     (SELECT
                             *
-                        FROM app_qcdc.khaosat_ketqua
+                        FROM khaosat_ketqua
                         where
                             khaosat_id = ?
                             and cau_hoi = ?
-                            AND uuid IN (SELECT uuid FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and ((? = -1 AND donvi_id IN (" . $donviStr . ")) OR donvi_id = ?))
+                            AND uuid IN (SELECT uuid FROM khaosat_ketqua where khaosat_id = ? and ((? = -1 AND donvi_id IN (" . $donviStr . ")) OR donvi_id = ?))
                         ) filteruuid
-                    inner join app_qcdc.khaosat_ketqua as khaosat
+                    inner join khaosat_ketqua as khaosat
                         on filteruuid.uuid = khaosat.uuid
                     where
                         (khaosat.cau_hoi = ? or khaosat.cau_hoi = '1.3 Lĩnh vực giải quyết')
@@ -527,10 +527,10 @@ class KhaoSatController extends VoyagerBaseController
             kq.uuid,
             kq.donvi_id,
             dv.ten_donvi
-        FROM app_qcdc.khaosat_ketqua kq
-        INNER JOIN app_qcdc.khao_sat ks
+        FROM khaosat_ketqua kq
+        INNER JOIN khao_sat ks
             ON kq.khaosat_id = ks.id
-        LEFT JOIN app_qcdc.don_vi dv
+        LEFT JOIN don_vi dv
             ON kq.donvi_id = dv.id
         WHERE
             khaosat_id = ?

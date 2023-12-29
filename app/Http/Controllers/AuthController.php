@@ -76,17 +76,9 @@ class AuthController extends Controller
 
             $oClient = OClient::where('password_client', 1)->first();
 
-            //$token = $this->getTokenAndRefreshTokenByPassword($oClient, \auth()->user()->email, $request->password);
+            $token = $this->getTokenAndRefreshTokenByPassword($oClient, \auth()->user()->email, $request->password);
 
-            //$roles = $this->GetRoles(Auth::id());
-
-            return response()->json([
-                'error_code' => 0,
-                'message' => 'Thành công',
-                'data' => [
-                    'oClient' => $oClient,
-                ]
-            ], Response::HTTP_OK);
+            $roles = $this->GetRoles(Auth::id());
 
             return response()->json([
                 'error_code' => 0,
@@ -174,16 +166,16 @@ class AuthController extends Controller
         FROM
             (SELECT
 	            ra.name
-            FROM app_qcdc.users u
-            LEFT JOIN app_qcdc.roles ra
+            FROM users u
+            LEFT JOIN roles ra
 	            ON u.role_id = ra.id
             WHERE
 	            u.id = ?
             UNION
             SELECT
 	            rb.name
-            FROM  app_qcdc.user_roles ur
-            LEFT JOIN app_qcdc.roles rb
+            FROM  user_roles ur
+            LEFT JOIN roles rb
 	            ON ur.role_id = rb.id
             WHERE
 	            ur.user_id = ?) b;

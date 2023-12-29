@@ -381,12 +381,12 @@ class QuanTriThongBaoController extends VoyagerBaseController
             FROM(
                 SELECT
                     id
-                FROM app_qcdc.users
+                FROM users
                 WHERE role_id = ?
                 UNION
                 SELECT
                     user_id as id
-                FROM app_qcdc.user_roles
+                FROM user_roles
                 WHERE
                     role_id = ?) a;
                 ";

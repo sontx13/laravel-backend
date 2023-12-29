@@ -473,7 +473,7 @@ class UserController extends VoyagerBaseController
             "SELECT
             DISTINCT
             role_id
-        FROM app_qcdc.user_roles
+        FROM user_roles
         WHERE user_id = ?";
         $lsRoles = DB::select($query, [$userid]);
         return array_map(function ($value) {

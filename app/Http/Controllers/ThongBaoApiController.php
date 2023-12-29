@@ -68,8 +68,8 @@ class ThongBaoApiController extends Controller
             tb.du_lieu,
             tb.ngay_gui,
             ls.trang_thai
-        FROM app_qcdc.lichsu_thongbao ls
-        INNER JOIN app_qcdc.thong_bao tb
+        FROM lichsu_thongbao ls
+        INNER JOIN thong_bao tb
             ON ls.thongbao_id = tb.id
         WHERE
             ls.user_id = ?

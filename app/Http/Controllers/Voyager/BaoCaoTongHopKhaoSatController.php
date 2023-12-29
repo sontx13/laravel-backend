@@ -235,13 +235,13 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
             $query =
             " SELECT dv.ten_donvi_ct,IFNULL(a.luotks,0) as soluotks FROM (
                 SELECT donvi_id,count( distinct uuid) as luotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
                 group by donvi_id
             ) a
-            RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id
+            RIGHT JOIN don_vi dv ON a.donvi_id = dv.id
             ORDER BY ".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate]);
 
@@ -249,13 +249,13 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
             $query =
             " SELECT dv.ten_donvi_ct,IFNULL(a.luotks,0) as soluotks FROM (
                 SELECT donvi_id,count( distinct uuid) as luotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
                 group by donvi_id
             ) a
-            RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id
+            RIGHT JOIN don_vi dv ON a.donvi_id = dv.id
             WHERE cap_donvi = 2
             ORDER BY ".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate]);
@@ -264,13 +264,13 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
             $query =
             " SELECT dv.ten_donvi_ct,IFNULL(a.luotks,0) as soluotks FROM (
                 SELECT donvi_id,count( distinct uuid) as luotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
                 group by donvi_id
             ) a
-            RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id
+            RIGHT JOIN don_vi dv ON a.donvi_id = dv.id
             WHERE id_donvi_cha = ? or id = ?
             ORDER BY ".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate,$donvi,$donvi]);
@@ -301,13 +301,13 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
                 SELECT c.*, IFNULL(SUM(c.luotks),0)  as soluotks FROM
                         (SELECT * FROM (
                                     SELECT donvi_id,count( distinct uuid) as luotks
-                                    FROM app_qcdc.khaosat_ketqua
+                                    FROM khaosat_ketqua
                                     WHERE khaosat_id = ?
                                     and created_at >= ?
                                     and created_at <= ?
                                     group by donvi_id
                                 ) a
-                                RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id) c
+                                RIGHT JOIN don_vi dv ON a.donvi_id = dv.id) c
                 GROUP BY c.group_donvi)d
                 WHERE d.cap_donvi =2
                 ORDER BY ".$sapxepStr;
@@ -324,10 +324,10 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //     (SELECT
         //         donvi_id,
         //         count( distinct uuid) as soluotks
-        //         FROM app_qcdc.khaosat_ketqua
+        //         FROM khaosat_ketqua
         //         WHERE khaosat_id = ?
         //         group by donvi_id) a
-        //     LEFT JOIN app_qcdc.don_vi dv
+        //     LEFT JOIN don_vi dv
         //         ON a.donvi_id = dv.id
         //     WHERE
         //         a.donvi_id IN (".$donviStr.")";
@@ -358,13 +358,13 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
                 SELECT c.*, IFNULL(SUM(c.luotks),0)  as soluotks FROM
                         (SELECT * FROM (
                                     SELECT donvi_id,count( distinct uuid) as luotks
-                                    FROM app_qcdc.khaosat_ketqua
+                                    FROM khaosat_ketqua
                                     WHERE khaosat_id = ?
                                     and created_at >= ?
                                     and created_at <= ?
                                     group by donvi_id
                                 ) a
-                                RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id) c
+                                RIGHT JOIN don_vi dv ON a.donvi_id = dv.id) c
                 GROUP BY c.group_donvi)d
                 WHERE d.cap_donvi =2
                 ORDER BY ".$sapxepStr;
@@ -395,14 +395,14 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
             (
                 SELECT * FROM (
                 SELECT donvi_id,count( distinct uuid) as luotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
                 and cau_hoi = ?
                 and cau_tra_loi = ?
                 group by donvi_id) a
-            RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id) c
+            RIGHT JOIN don_vi dv ON a.donvi_id = dv.id) c
             ".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate, $cauhoi ,$traloi ]);
         }else if ($donvi == 1) {
@@ -411,14 +411,14 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
             (
                 SELECT * FROM (
                 SELECT donvi_id,count( distinct uuid) as luotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
                 and cau_hoi = ?
                 and cau_tra_loi = ?
                 group by donvi_id) a
-            RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id) c
+            RIGHT JOIN don_vi dv ON a.donvi_id = dv.id) c
             WHERE id_donvi_cha =1
             ".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate, $cauhoi ,$traloi ]);
@@ -428,14 +428,14 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
             (
                 SELECT * FROM (
                 SELECT donvi_id,count( distinct uuid) as luotks
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
                 and cau_hoi = ?
                 and cau_tra_loi = ?
                 group by donvi_id) a
-            RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id) c
+            RIGHT JOIN don_vi dv ON a.donvi_id = dv.id) c
             WHERE group_donvi = ?
             ".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate, $cauhoi ,$traloi ,$donvi]);
@@ -458,7 +458,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //if ($currentUser->is_admin) {
             $query =
             "SELECT cau_tra_loi,count( distinct uuid) as soluong
-            FROM app_qcdc.khaosat_ketqua
+            FROM khaosat_ketqua
             WHERE khaosat_id = ?
             and created_at >= ?
             and created_at <= ?
@@ -482,7 +482,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //if ($currentUser->is_admin) {
             $query =
             "SELECT cau_tra_loi,count( distinct uuid) as soluong
-            FROM app_qcdc.khaosat_ketqua
+            FROM khaosat_ketqua
             WHERE khaosat_id = ?
             and created_at >= ?
             and created_at <= ?
@@ -514,7 +514,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
                     SELECT c.*, IFNULL(SUM(c.luotks),0)  as soluong FROM
                             (SELECT * FROM (
                                     SELECT donvi_id,count( distinct uuid) as luotks
-                                    FROM app_qcdc.khaosat_ketqua
+                                    FROM khaosat_ketqua
                                     WHERE khaosat_id = ?
                                     and created_at >= ?
                                     and created_at <= ?
@@ -522,7 +522,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
                                     and cau_tra_loi = ?
                                     group by donvi_id
                                     ) a
-                                    RIGHT JOIN app_qcdc.don_vi dv ON a.donvi_id = dv.id) c
+                                    RIGHT JOIN don_vi dv ON a.donvi_id = dv.id) c
                     GROUP BY c.group_donvi)d
                     WHERE d.cap_donvi =2".$sapxepStr;
             return DB::select($query, [$khaosatid,$tungayDate,$denngayDate, $cauhoi, $traloi]);
@@ -544,7 +544,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //if ($currentUser->is_admin) {
             $query =
                 "SELECT cau_tra_loi,count( distinct uuid) as soluong
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
@@ -560,9 +560,9 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //     "SELECT
         //         cau_tra_loi,
         //         count(cau_tra_loi) AS so_luot
-        //     FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and cau_hoi = ?
+        //     FROM khaosat_ketqua where khaosat_id = ? and cau_hoi = ?
         //     AND uuid IN (
-        //         SELECT uuid FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and (? = -1 OR cau_tra_loi = ?) and ((? = -1 AND donvi_id IN (".$donviStr.")) OR donvi_id = ?)
+        //         SELECT uuid FROM khaosat_ketqua where khaosat_id = ? and (? = -1 OR cau_tra_loi = ?) and ((? = -1 AND donvi_id IN (".$donviStr.")) OR donvi_id = ?)
         //     )
         //     group by cau_tra_loi;
         //     ";
@@ -584,7 +584,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //if ($currentUser->is_admin) {
             $query =
                 "SELECT cau_tra_loi,count( distinct uuid) as soluong
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
@@ -609,7 +609,7 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //if ($currentUser->is_admin) {
             $query =
                 "SELECT cau_tra_loi,count( distinct uuid) as soluong
-                FROM app_qcdc.khaosat_ketqua
+                FROM khaosat_ketqua
                 WHERE khaosat_id = ?
                 and created_at >= ?
                 and created_at <= ?
@@ -631,13 +631,13 @@ class BaoCaoTongHopKhaoSatController extends VoyagerBaseController
         //             from
         //             (SELECT
         //                     *
-        //                 FROM app_qcdc.khaosat_ketqua
+        //                 FROM khaosat_ketqua
         //                 where
         //                     khaosat_id = ?
         //                     and cau_hoi = ?
-        //                     AND uuid IN (SELECT uuid FROM app_qcdc.khaosat_ketqua where khaosat_id = ? and ((? = -1 AND donvi_id IN (".$donviStr.")) OR donvi_id = ?))
+        //                     AND uuid IN (SELECT uuid FROM khaosat_ketqua where khaosat_id = ? and ((? = -1 AND donvi_id IN (".$donviStr.")) OR donvi_id = ?))
         //                 ) filteruuid
-        //             inner join app_qcdc.khaosat_ketqua as khaosat
+        //             inner join khaosat_ketqua as khaosat
         //                 on filteruuid.uuid = khaosat.uuid
         //             where
         //                 (khaosat.cau_hoi = ? or khaosat.cau_hoi = '2: Lĩnh vực thủ tục hành chính đã giải quyết')

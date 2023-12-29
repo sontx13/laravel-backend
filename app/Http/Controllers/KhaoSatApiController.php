@@ -58,8 +58,8 @@ class KhaoSatApiController extends Controller
 						AND (ks.ngay_ketthuc IS NULL OR ks.ngay_ketthuc >= ?) THEN 0
 					ELSE 2
                 END AS da_thuchien
-            FROM app_qcdc.khao_sat ks
-            LEFT JOIN app_qcdc.khaosat_ketqua kq
+            FROM khao_sat ks
+            LEFT JOIN khaosat_ketqua kq
                 ON ks.id = kq.khaosat_id AND kq.so_dien_thoai = ?) a
         WHERE
             (? = -1 OR a.da_thuchien = ?)

@@ -33,8 +33,8 @@ class TinTucApiController extends Controller
             "SELECT
             p.*,
             IFNULL(c.name, 'Dân vận') as category_name
-        FROM app_qcdc.posts p
-        LEFT JOIN app_qcdc.categories c
+        FROM posts p
+        LEFT JOIN categories c
             ON p.category_id = c.id
         WHERE
             p.published_at IS NOT NULL
@@ -54,8 +54,8 @@ class TinTucApiController extends Controller
                     c.is_show_image,
                     p.*
                 FROM
-                    app_qcdc.posts p
-                    LEFT JOIN app_qcdc.categories c ON p.category_id = c.id
+                    posts p
+                    LEFT JOIN categories c ON p.category_id = c.id
                 WHERE
                     p.status = 'PUBLISHED'
                     AND p.category_id = ?
