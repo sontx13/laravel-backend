@@ -76,6 +76,15 @@ class AuthController extends Controller
 
             $oClient = OClient::where('password_client', 1)->first();
 
+             return response()->json([
+                'error_code' => 0,
+                'message' => 'Thành công',
+                'data' => [
+                    'id' => Auth::id(),
+                    'user' => Auth::user()
+                ]
+            ], Response::HTTP_OK);
+
             $token = $this->getTokenAndRefreshTokenByPassword($oClient, \auth()->user()->email, $request->password);
 
             $roles = $this->GetRoles(Auth::id());
