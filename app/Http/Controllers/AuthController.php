@@ -74,13 +74,6 @@ class AuthController extends Controller
                 ], Response::HTTP_OK);
             }
 
-            return response()->json([
-                'error_code' => 1,
-                'message' => "HTTP_NOT_ACCEPTABLE",
-                'user' => Auth::user(),
-                'id' => Auth::id()
-            ], Response::HTTP_NOT_ACCEPTABLE);
-
             $oClient = OClient::where('password_client', 1)->first();
 
             $token = $this->getTokenAndRefreshTokenByPassword($oClient, \auth()->user()->email, $request->password);
