@@ -80,8 +80,8 @@ class AuthController extends Controller
                 'error_code' => 0,
                 'message' => 'Thành công',
                 'data' => [
-                    'id' => Auth::id(),
-                    'user' => Auth::user()
+                    'oClient' => $oClient,
+                    'email' => \auth()->user()->email
                 ]
             ], Response::HTTP_OK);
 
